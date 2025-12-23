@@ -1,0 +1,14 @@
+# Build output
+build/
+*.ssd
+*.dsd
+*.inf
+
+# Editor files
+*.swp
+*~
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
