@@ -56,7 +56,7 @@ src/
 
 ## Protocol
 
-Uses RUBP (Rachel Unified Binary Protocol) - 64-byte fixed messages with 16-byte header and 48-byte payload. See `docs/PROTOCOL.md` in the main Rachel repository.
+Uses RUBP (Rachel Unified Binary Protocol) - 64-byte fixed messages with 16-byte header and 48-byte payload. Full specification: [rachel-multiverse/protocol](https://github.com/rachel-multiverse/protocol).
 
 ## Related Projects
 
