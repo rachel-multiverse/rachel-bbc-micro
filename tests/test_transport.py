@@ -8,7 +8,7 @@ def test_real_bbc_serial_path() -> None:
     assert "OSBYTE 7: receive baud" in SOURCE
     assert "OSBYTE 8: transmit baud" in SOURCE
     assert 'EQUS "AT+CIPSTART="' in SOURCE
-    assert 'EQUS ",8765"' in SOURCE
+    assert 'EQUS ",6502"' in SOURCE
     assert 'EQUS "AT+CIPSEND=64"' in SOURCE
 if __name__ == "__main__":
     test_real_bbc_serial_path()

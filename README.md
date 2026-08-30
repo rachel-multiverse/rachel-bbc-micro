@@ -29,7 +29,7 @@ and Econet are useful future transports, but are not implemented by this build.
 
 On startup, enter the host address in the format:
 ```
-SERVER IP (PORT 8765): 192.168.1.100
+SERVER IP (PORT 6502): 192.168.1.100
 ```
 
 ## Architecture
