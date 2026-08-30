@@ -1,0 +1,21 @@
+name: BBC Micro CI
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: stardot/beebasm
+          path: toolchain/beebasm
+      - run: cmake -S toolchain/beebasm -B toolchain/beebasm/build -DCMAKE_BUILD_TYPE=Release
+      - run: cmake --build toolchain/beebasm/build --parallel
+      - run: make BEEBASM=${{ github.workspace }}/toolchain/beebasm/build/beebasm
+      - run: python3 tests/test_transport.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: rachel-bbc-micro-ssd
+          path: build/rachel.ssd

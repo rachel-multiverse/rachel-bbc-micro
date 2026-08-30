@@ -24,7 +24,15 @@ NET_CONNECTED    = 2
 ; Returns: C clear on success
 ; -----------------------------------------------------------------------------
 .net_init
-    ; Initialize ACIA for 9600 baud
+    ; Ask MOS to program both Serial ULA baud selectors. ACIA control alone
+    ; cannot select 9600 baud on a BBC Micro.
+    LDA #7              ; OSBYTE 7: receive baud
+    LDX #7              ; 7 = 9600 baud
+    JSR OSBYTE
+    LDA #8              ; OSBYTE 8: transmit baud
+    LDX #7
+    JSR OSBYTE
+    ; Initialize ACIA for 8N1 using the Serial ULA's x64 clock.
     LDA #$03            ; Master reset
     STA ACIA_CTRL
     LDA #$16            ; 8N1, divide by 64
@@ -81,17 +89,13 @@ NET_CONNECTED    = 2
     JMP nc_ip_loop
 
 .nc_ip_done
-    ; Send comma and port
-    LDA #','
+    LDA #34
     JSR send_byte
-
-    LDA conn_port+1     ; High byte first for decimal
-    LDX conn_port
-    JSR send_word
-
-    ; Send CR
-    LDA #13
-    JSR send_byte
+    LDA #<at_port
+    STA zp_ptr
+    LDA #>at_port
+    STA zp_ptr+1
+    JSR send_string
 
     ; Wait for OK or CONNECT
     JSR wait_response
@@ -113,6 +117,9 @@ NET_CONNECTED    = 2
     EQUB 34
     EQUS "TCP"
     EQUB 34, ',', 34, 0
+.at_port
+    EQUS ",8765"
+    EQUB 13, 0
 
 ; -----------------------------------------------------------------------------
 ; Close connection

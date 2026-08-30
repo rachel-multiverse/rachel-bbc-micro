@@ -163,7 +163,7 @@
     RTS
 
 .cs_title   EQUS "CONNECT TO RACHEL", 0
-.cs_prompt  EQUS "SERVER IP: ", 0
+.cs_prompt  EQUS "SERVER IP (PORT 8765): ", 0
 
 ; -----------------------------------------------------------------------------
 ; Get server address from user
